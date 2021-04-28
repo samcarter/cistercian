@@ -68,10 +68,18 @@ A package for using cistercian numerals in latex
     % store scaling factor
     \cistercian@scale
     %
-    \cistercian@digit{1}
-    \cistercian@digit[xscale=-1]{1}
-    \cistercian@digit[yscale=-1]{1}
-    \cistercian@digit[xscale=-1,yscale=-1]{1}
+    \pgfmathparse{int(mod(#2,10)}
+    \let\firstdigit\pgfmathresult
+    \pgfmathparse{int((mod(#2,100)-mod(#2,10))/10)}
+    \let\seconddigit\pgfmathresult
+    \pgfmathparse{int((mod(#2,1000)-mod(#2,100))/100)}
+    \let\thirddigit\pgfmathresult
+    \pgfmathparse{int((mod(#2,10000)-mod(#2,1000))/1000)}
+    \let\forthdigit\pgfmathresult
+    \cistercian@digit{\firstdigit}
+    \cistercian@digit[xscale=-1]{\seconddigit}
+    \cistercian@digit[yscale=-1,yshift=-1.5ex]{\thirddigit}
+    \cistercian@digit[xscale=-1,yscale=-1,yshift=-1.5ex]{\forthdigit}
     ;
   \end{tikzpicture}%    
 }
@@ -154,9 +162,7 @@ A package for using cistercian numerals in latex
 %
 % tesT \cistercian[scale=2, draw=red]{1}
 %
-% \foreach \x in {1,...,9}{\cistercian[scale=6]{\x}}
+% \foreach \x in {1,...,11}{\cistercian[scale=6]{\x}}
 %
-% \cistercian[scale=6]{10}
-% \cistercian[scale=6]{100}
-% \cistercian[scale=6]{1000}
-% \cistercian[scale=6]{11}
+%
+
