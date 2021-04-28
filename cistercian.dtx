@@ -137,39 +137,20 @@ A package for using cistercian numerals in latex
 
 %    \end{macrocode}
 %
+% inspired by The Forgotten Number System - Numberphile-9p55Qgt7Ciw
+
+
 % \cistercian{12}
 %
-% tesT \cistercian{1}
+% tesT\cistercian{1}
 %
-%{ \Huge tesT \cistercian{1} }
+%{ \Huge tesT\cistercian{1} }
 %
 % tesT \cistercian[scale=2, draw=red]{1}
 %
-% \foreach \x in {1,...,99}{\x:\cistercian[scale=6]{\x}\par}
+% \foreach \x in {1,...,99}{\cistercian[scale=6]{\x}}
 % \cistercian[scale=6]{33}
 %
 % Todo:
-% - is there some more clever way than superimposing the for digits while mirroring/rotating
-%
-% - check if the numbers are actually correct
-%
-% - would it be nice to use this with counters? e.g. for pagenumbers
-%
 % - write documentation
-%
-% - is there anything that can be done about the ugly line joints, e.g. for 33?
-
-% problemtic numbers for the line joins:
-%
-% - xx31/xx13/31xx/13xx
-%
-% - xx33/33xx
-%
-% - xx35/xx53/35xx/53xx
-%
-% - xx37/xx73/37xx/73xx
-%
-% - xx39/xx93/39xx/93xx
-%
-%\cistercian[scale=6]{13}\cistercian[scale=6]{33}\cistercian[scale=6]{53}\cistercian[scale=6]{73}\cistercian[scale=6]{93}
-
+% - what should the spacing around the number be?
