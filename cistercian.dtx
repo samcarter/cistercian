@@ -68,9 +68,9 @@ A package for using cistercian numerals in latex
     % store scaling factor
     \cistercian@scale
     %
-    % drawing
+    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)
     \ifnum1=#2%
-      \cistercian@one%
+      \cistercian@one
     \fi%
     \ifnum2=#2%
       \cistercian@two%
@@ -97,55 +97,56 @@ A package for using cistercian numerals in latex
       \cistercian@nine%
     \fi%  
     \ifnum10=#2%
-      \cistercian@one[xscale=-1]%
+      [xscale=-1]\cistercian@one%
     \fi%   
     \ifnum11=#2%
-      \cistercian@one%
-      \cistercian@one[xscale=-1]%
-    \fi%          
-    \ifnum100=#2%
-      \cistercian@one[yscale=-1]%
-    \fi%    
-    \ifnum1000=#2%
-      \cistercian@one[xscale=-1,yscale=-1]%
-    \fi%        
+      \cistercian@one
+      [xscale=-1]\cistercian@one%
+    \fi%         
+^^A    \ifnum100=#2%
+^^A      [yscale=-1]\cistercian@one%
+^^A    \fi%    
+^^A    \ifnum1000=#2%
+^^A      [xscale=-1,yscale=-1]\cistercian@one%
+^^A    \fi%        
+    ;
   \end{tikzpicture}%    
 }
 
-\newcommand*{\cistercian@one}[1][]{%
-  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,0);
+\newcommand{\cistercian@one}{%
+  -- ++(0.5ex,0)
 }
 
-\newcommand*{\cistercian@two}[1][]{%
-  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) ++(0,-0.5ex) -- ++(0.5ex,0);
+\newcommand{\cistercian@two}{%
+  ++(0,-0.5ex) -- ++(0.5ex,0)
 }
 
-\newcommand*{\cistercian@three}[1][]{%
-  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,-0.5ex); 
+\newcommand{\cistercian@three}{%
+  -- ++(0.5ex,-0.5ex)
 }
 
-\newcommand*{\cistercian@four}[1][]{%
-  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) ++(0ex,-0.5ex) -- ++(0.5ex,0.5ex);  
+\newcommand{\cistercian@four}{%
+  ++(0ex,-0.5ex) -- ++(0.5ex,0.5ex)
 }
 
-\newcommand*{\cistercian@five}[1][]{%
-  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,0ex) -- ++(-0.5ex,-0.5ex);
+\newcommand{\cistercian@five}{%
+  -- ++(0.5ex,0ex) -- ++(-0.5ex,-0.5ex)
 }
 
-\newcommand*{\cistercian@six}[1][]{%
-  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)  ++(0.5ex,0ex) -- ++(0ex,-0.5ex);
+\newcommand{\cistercian@six}{%
+  ++(0.5ex,0ex) -- ++(0ex,-0.5ex)
 }
 
-\newcommand*{\cistercian@seven}[1][]{%
-  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) --  ++(0.5ex,0ex) -- ++(0,-0.5ex);
+\newcommand{\cistercian@seven}{%
+  --  ++(0.5ex,0ex) -- ++(0,-0.5ex)
 }
 
-\newcommand*{\cistercian@eight}[1][]{%
-  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)  ++(0,-0.5ex) -- ++(0.5ex,0) -- ++(0,0.5ex);
+\newcommand{\cistercian@eight}{%
+  ++(0,-0.5ex) -- ++(0.5ex,0) -- ++(0,0.5ex)
 }
 
-\newcommand*{\cistercian@nine}[1][]{%
-  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) --  ++(0.5ex,0ex) -- ++(0,-0.5ex) -- ++(-0.5ex,0);
+\newcommand{\cistercian@nine}{%
+  --  ++(0.5ex,0ex) -- ++(0,-0.5ex) -- ++(-0.5ex,0)
 }
 
 % \makeatother
