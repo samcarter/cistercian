@@ -68,7 +68,16 @@ A package for using cistercian numerals in latex
     % store scaling factor
     \cistercian@scale
     %
-    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)
+    \cistercian@digit{1}
+    \cistercian@digit[xscale=-1]{1}
+    \cistercian@digit[yscale=-1]{1}
+    \cistercian@digit[xscale=-1,yscale=-1]{1}
+    ;
+  \end{tikzpicture}%    
+}
+
+\newcommand{\cistercian@digit}[2][]{%
+    \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)
     \ifnum1=#2%
       \cistercian@one
     \fi%
@@ -96,21 +105,7 @@ A package for using cistercian numerals in latex
     \ifnum9=#2%
       \cistercian@nine%
     \fi%  
-    \ifnum10=#2%
-      [xscale=-1]\cistercian@one%
-    \fi%   
-    \ifnum11=#2%
-      \cistercian@one
-      [xscale=-1]\cistercian@one%
-    \fi%         
-^^A    \ifnum100=#2%
-^^A      [yscale=-1]\cistercian@one%
-^^A    \fi%    
-^^A    \ifnum1000=#2%
-^^A      [xscale=-1,yscale=-1]\cistercian@one%
-^^A    \fi%        
     ;
-  \end{tikzpicture}%    
 }
 
 \newcommand{\cistercian@one}{%
