@@ -85,71 +85,35 @@ A package for using cistercian numerals in latex
 }
 
 \newcommand{\cistercian@digit}[2][]{%
-    \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)
-    \ifnum1=#2%
-      \cistercian@one
-    \fi%
-    \ifnum2=#2%
-      \cistercian@two%
-    \fi%
-    \ifnum3=#2%
-      \cistercian@three%
-    \fi%
-    \ifnum4=#2%
-      \cistercian@four%
-    \fi%  
-    \ifnum5=#2%
-      \cistercian@five%
-    \fi%
-    \ifnum6=#2%
-      \cistercian@six%
-    \fi%
-    \ifnum7=#2%
-      \cistercian@seven%
-    \fi%
-    \ifnum8=#2%
-      \cistercian@eight%
-    \fi%  
-    \ifnum9=#2%
-      \cistercian@nine%
-    \fi%  
-    ;
-}
-
-\newcommand{\cistercian@one}{%
-  -- ++(0.5ex,0)
-}
-
-\newcommand{\cistercian@two}{%
-  ++(0,-0.5ex) -- ++(0.5ex,0)
-}
-
-\newcommand{\cistercian@three}{%
-  -- ++(0.5ex,-0.5ex)
-}
-
-\newcommand{\cistercian@four}{%
-  ++(0ex,-0.5ex) -- ++(0.5ex,0.5ex)
-}
-
-\newcommand{\cistercian@five}{%
-  -- ++(0.5ex,0ex) -- ++(-0.5ex,-0.5ex)
-}
-
-\newcommand{\cistercian@six}{%
-  ++(0.5ex,0ex) -- ++(0ex,-0.5ex)
-}
-
-\newcommand{\cistercian@seven}{%
-  --  ++(0.5ex,0ex) -- ++(0,-0.5ex)
-}
-
-\newcommand{\cistercian@eight}{%
-  ++(0,-0.5ex) -- ++(0.5ex,0) -- ++(0,0.5ex)
-}
-
-\newcommand{\cistercian@nine}{%
-  --  ++(0.5ex,0ex) -- ++(0,-0.5ex) -- ++(-0.5ex,0)
+  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)
+  \ifnum1=#2%
+    -- ++(0.5ex,0)
+  \fi%
+  \ifnum2=#2%
+    ++(0,-0.5ex) -- ++(0.5ex,0)
+  \fi%
+  \ifnum3=#2%
+    -- ++(0.5ex,-0.5ex)
+  \fi%
+  \ifnum4=#2%
+    ++(0ex,-0.5ex) -- ++(0.5ex,0.5ex)
+  \fi%  
+  \ifnum5=#2%
+    -- ++(0.5ex,0ex) -- ++(-0.5ex,-0.5ex)
+  \fi%
+  \ifnum6=#2%
+    ++(0.5ex,0ex) -- ++(0ex,-0.5ex)
+  \fi%
+  \ifnum7=#2%
+    --  ++(0.5ex,0ex) -- ++(0,-0.5ex)
+  \fi%
+  \ifnum8=#2%
+    ++(0,-0.5ex) -- ++(0.5ex,0) -- ++(0,0.5ex)
+  \fi%  
+  \ifnum9=#2%
+    --  ++(0.5ex,0ex) -- ++(0,-0.5ex) -- ++(-0.5ex,0)
+  \fi%  
+  ;
 }
 
 % \makeatother
@@ -162,7 +126,7 @@ A package for using cistercian numerals in latex
 %
 % tesT \cistercian[scale=2, draw=red]{1}
 %
-% \foreach \x in {1,...,11}{\cistercian[scale=6]{\x}}
+% \foreach \x in {1,...,31}{\cistercian[scale=6]{\x}}
 %
 %
 
