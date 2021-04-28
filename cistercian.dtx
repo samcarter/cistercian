@@ -56,30 +56,25 @@ A package for using cistercian numerals in latex
 % 
 % \makeatletter
 
-% storing the scaling factor
-\newcommand{\cistercian@scale}{%
-  \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%
-  \pgfmathsetmacro{\cistercian@scalingfactor}{sqrt(abs(\tmpscaleA*\tmpscaleD-\tmpscaleB*\tmpscaleC))*sqrt(abs((\pgf@xx/1cm)*(\pgf@yy/1cm)-(\pgf@xy/1cm)*(\pgf@yx/1cm)))}%
-}
-
 \newcommand{\cistercian}[2][]{%
   \begin{tikzpicture}[#1]%
     %
     % store scaling factor
-    \cistercian@scale
+    \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%
+    \pgfmathsetmacro{\cistercian@scalingfactor}{sqrt(abs(\tmpscaleA*\tmpscaleD-\tmpscaleB*\tmpscaleC))*sqrt(abs((\pgf@xx/1cm)*(\pgf@yy/1cm)-(\pgf@xy/1cm)*(\pgf@yx/1cm)))}%
     %
     \pgfmathparse{int(mod(#2,10)}
-    \let\firstdigit\pgfmathresult
+    \let\cistercian@firstdigit\pgfmathresult
     \pgfmathparse{int((mod(#2,100)-mod(#2,10))/10)}
-    \let\seconddigit\pgfmathresult
+    \let\cistercian@seconddigit\pgfmathresult
     \pgfmathparse{int((mod(#2,1000)-mod(#2,100))/100)}
-    \let\thirddigit\pgfmathresult
+    \let\cistercian@thirddigit\pgfmathresult
     \pgfmathparse{int((mod(#2,10000)-mod(#2,1000))/1000)}
-    \let\forthdigit\pgfmathresult
-    \cistercian@digit{\firstdigit}
-    \cistercian@digit[xscale=-1]{\seconddigit}
-    \cistercian@digit[yscale=-1,yshift=-1.5ex]{\thirddigit}
-    \cistercian@digit[xscale=-1,yscale=-1,yshift=-1.5ex]{\forthdigit}
+    \let\cistercian@forthdigit\pgfmathresult
+    \cistercian@digit{\cistercian@firstdigit}
+    \cistercian@digit[xscale=-1]{\cistercian@seconddigit}
+    \cistercian@digit[yscale=-1,yshift=-1.5ex]{\cistercian@thirddigit}
+    \cistercian@digit[xscale=-1,yscale=-1,yshift=-1.5ex]{\cistercian@forthdigit}
   \end{tikzpicture}%    
 }
 
@@ -125,7 +120,14 @@ A package for using cistercian numerals in latex
 %
 % tesT \cistercian[scale=2, draw=red]{1}
 %
-% \foreach \x in {1,...,31}{\cistercian[scale=6]{\x}}
+% \foreach \x in {1,...,10}{\x:\cistercian[scale=6]{\x}}
+% \cistercian[scale=6]{33}
 %
-%
+% Todo:
+% - is there some more clever way than superimposing the for digits while mirroring/rotating
+% - check if the numbers are actually correct
+% - would it be nice to use this with counters? e.g. for pagenumbers
+% - write documentation
+% - is there anything that can be done about the ugly line joints, e.g. for 33?
+
 
