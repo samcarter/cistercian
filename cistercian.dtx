@@ -63,141 +63,89 @@ A package for using cistercian numerals in latex
 }
 
 \newcommand{\cistercian}[2][]{%
-  \ifnum1=#2%
-    \cistercian@one[#1]%
-  \fi%
-  \ifnum2=#2%
-    \cistercian@two[#1]%
-  \fi%
-  \ifnum3=#2%
-    \cistercian@three[#1]%
-  \fi%
-  \ifnum4=#2%
-    \cistercian@four[#1]%
-  \fi%  
-  \ifnum5=#2%
-    \cistercian@five[#1]%
-  \fi%
-  \ifnum6=#2%
-    \cistercian@six[#1]%
-  \fi%
-  \ifnum7=#2%
-    \cistercian@seven[#1]%
-  \fi%
-  \ifnum8=#2%
-    \cistercian@eight[#1]%
-  \fi%  
-  \ifnum9=#2%
-    \cistercian@nine[#1]%
-  \fi%  
-  \ifnum10=#2%
-    \cistercian@one[xscale=-1,#1]%
-  \fi%       
-  \ifnum100=#2%
-    \cistercian@one[yscale=-1,#1]%
-  \fi%    
-  \ifnum1000=#2%
-    \cistercian@one[xscale=-1,yscale=-1,#1]%
-  \fi%        
+  \begin{tikzpicture}[#1]%
+    %
+    % store scaling factor
+    \cistercian@scale
+    %
+    % drawing
+    \ifnum1=#2%
+      \cistercian@one%
+    \fi%
+    \ifnum2=#2%
+      \cistercian@two%
+    \fi%
+    \ifnum3=#2%
+      \cistercian@three%
+    \fi%
+    \ifnum4=#2%
+      \cistercian@four%
+    \fi%  
+    \ifnum5=#2%
+      \cistercian@five%
+    \fi%
+    \ifnum6=#2%
+      \cistercian@six%
+    \fi%
+    \ifnum7=#2%
+      \cistercian@seven%
+    \fi%
+    \ifnum8=#2%
+      \cistercian@eight%
+    \fi%  
+    \ifnum9=#2%
+      \cistercian@nine%
+    \fi%  
+    \ifnum10=#2%
+      \cistercian@one[xscale=-1]%
+    \fi%   
+    \ifnum11=#2%
+      \cistercian@one%
+      \cistercian@one[xscale=-1]%
+    \fi%          
+    \ifnum100=#2%
+      \cistercian@one[yscale=-1]%
+    \fi%    
+    \ifnum1000=#2%
+      \cistercian@one[xscale=-1,yscale=-1]%
+    \fi%        
+  \end{tikzpicture}%    
 }
 
 \newcommand*{\cistercian@one}[1][]{%
-  \begin{tikzpicture}[#1]%
-    %
-    % store scaling factor
-    \cistercian@scale
-    %
-    % drawing
-    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,0);
-  \end{tikzpicture}%
+  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,0);
 }
 
 \newcommand*{\cistercian@two}[1][]{%
-  \begin{tikzpicture}[#1]%
-    %
-    % store scaling factor
-    \cistercian@scale
-    %
-    % drawing
-    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) ++(0,-0.5ex) -- ++(0.5ex,0);
-  \end{tikzpicture}%    
+  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) ++(0,-0.5ex) -- ++(0.5ex,0);
 }
 
 \newcommand*{\cistercian@three}[1][]{%
-  \begin{tikzpicture}[#1]%
-    %
-    % store scaling factor
-    \cistercian@scale
-    %
-    % drawing
-    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,-0.5ex);
-  \end{tikzpicture}%    
+  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,-0.5ex); 
 }
 
 \newcommand*{\cistercian@four}[1][]{%
-  \begin{tikzpicture}[#1]%
-    %
-    % store scaling factor
-    \cistercian@scale
-    %
-    % drawing
-    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) ++(0ex,-0.5ex) -- ++(0.5ex,0.5ex);
-  \end{tikzpicture}%    
+  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) ++(0ex,-0.5ex) -- ++(0.5ex,0.5ex);  
 }
 
 \newcommand*{\cistercian@five}[1][]{%
-  \begin{tikzpicture}[#1]%
-    %
-    % store scaling factor
-    \cistercian@scale
-    %
-    % drawing
-    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,0ex) -- ++(-0.5ex,-0.5ex);
-  \end{tikzpicture}%    
+  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,0ex) -- ++(-0.5ex,-0.5ex);
 }
 
 \newcommand*{\cistercian@six}[1][]{%
-  \begin{tikzpicture}[#1]%
-    %
-    % store scaling factor
-    \cistercian@scale
-    %
-    % drawing
-    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)  ++(0.5ex,0ex) -- ++(0ex,-0.5ex);
-  \end{tikzpicture}%    
+  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)  ++(0.5ex,0ex) -- ++(0ex,-0.5ex);
 }
 
 \newcommand*{\cistercian@seven}[1][]{%
-  \begin{tikzpicture}[#1]%
-    %
-    % store scaling factor
-    \cistercian@scale
-    %
-    % drawing
-    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) --  ++(0.5ex,0ex) -- ++(0,-0.5ex);
-  \end{tikzpicture}%    
+  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) --  ++(0.5ex,0ex) -- ++(0,-0.5ex);
 }
 
 \newcommand*{\cistercian@eight}[1][]{%
-  \begin{tikzpicture}[#1]%
-    %
-    % store scaling factor
-    \cistercian@scale
-    %
-    % drawing
-    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)  ++(0,-0.5ex) -- ++(0.5ex,0) -- ++(0,0.5ex);
-  \end{tikzpicture}%    
+  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)  ++(0,-0.5ex) -- ++(0.5ex,0) -- ++(0,0.5ex);
 }
 
 \newcommand*{\cistercian@nine}[1][]{%
-  \begin{tikzpicture}[#1]%
-    %
-    % store scaling factor
-    \cistercian@scale
-    %
-    % drawing
-    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) --  ++(0.5ex,0ex) -- ++(0,-0.5ex) -- ++(-0.5ex,0);
-  \end{tikzpicture}%    
+  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) --  ++(0.5ex,0ex) -- ++(0,-0.5ex) -- ++(-0.5ex,0);
 }
 
 % \makeatother
@@ -215,3 +163,4 @@ A package for using cistercian numerals in latex
 % \cistercian[scale=6]{10}
 % \cistercian[scale=6]{100}
 % \cistercian[scale=6]{1000}
+% \cistercian[scale=6]{11}
