@@ -1,0 +1,107 @@
+% \iffalse meta-comment
+% !TeX TS-program = pdflatex %.dtx
+%<*internal>
+\iffalse
+%</internal>
+%<*internal>
+\fi
+\def\nameofplainTeX{plain}
+\ifx\fmtname\nameofplainTeX\else
+  \expandafter\begingroup
+\fi
+%</internal>
+%<*install>
+\input docstrip.tex
+\keepsilent
+\askforoverwritefalse
+\preamble
+
+-------------------------------------------------------------------
+
+The cistercian package 
+A package for using cistercian numerals in latex
+
+-------------------------------------------------------------------
+
+\endpreamble
+\generate{
+  \file{\jobname.sty}{\from{\jobname.dtx}{package}}
+}
+%</install>
+%<install>\endbatchfile
+%<*internal>
+\generate{
+  \file{\jobname.ins}{\from{\jobname.dtx}{install}}
+}
+\nopreamble\nopostamble
+\ifx\fmtname\nameofplainTeX
+  \expandafter\endbatchfile
+\else
+  \expandafter\endgroup
+\fi
+%</internal>
+
+\ProvidesPackage{cistercian}[2021/04/28 v0.1 Cistercian numerals]
+
+\RequirePackage{tikz}
+
+%<*driver>
+\documentclass{ltxdoc} 
+%\DisableImplementation
+\begin{document}
+  \DocInput{\jobname.dtx}
+\end{document}
+%</driver>
+% \fi
+% 
+% \makeatletter
+
+% storing the scaling factor
+\newcommand{\cistercian@scale}{%
+  \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%
+  \pgfmathsetmacro{\scalingfactor}{sqrt(abs(\tmpscaleA*\tmpscaleD-\tmpscaleB*\tmpscaleC))*sqrt(abs((\pgf@xx/1cm)*(\pgf@yy/1cm)-(\pgf@xy/1cm)*(\pgf@yx/1cm)))}%
+}
+
+\newcommand{\cistercian}[2][]{%
+  \begin{tikzpicture}[#1]
+    %
+    % store scaling factor
+    \cistercian@scale
+    %
+    % drawing
+    \ifnum1=#2
+      \cistercian@one%
+    \fi%
+    \ifnum2=#2
+      \cistercian@two%
+    \fi%    
+    \ifnum3=#2
+      \cistercian@three%
+    \fi%        
+  \end{tikzpicture}%  
+}
+
+\newcommand*{\cistercian@one}{%
+  \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,0);
+}
+
+\newcommand*{\cistercian@two}{%
+  \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) ++(0,-0.5ex) -- ++(0.5ex,0);
+}
+
+\newcommand*{\cistercian@three}{%
+  \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,-0.5ex);
+}
+
+% \makeatother
+% \cistercian{12}
+%
+% tesT \cistercian{1}
+%
+%{ \Huge tesT \cistercian{1} }
+%
+% tesT \cistercian[scale=2, draw=red]{1}
+%
+% \cistercian{2}
+%
+% \cistercian{3}
