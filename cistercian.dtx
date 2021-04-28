@@ -59,7 +59,7 @@ A package for using cistercian numerals in latex
 % storing the scaling factor
 \newcommand{\cistercian@scale}{%
   \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%
-  \pgfmathsetmacro{\scalingfactor}{sqrt(abs(\tmpscaleA*\tmpscaleD-\tmpscaleB*\tmpscaleC))*sqrt(abs((\pgf@xx/1cm)*(\pgf@yy/1cm)-(\pgf@xy/1cm)*(\pgf@yx/1cm)))}%
+  \pgfmathsetmacro{\cistercian@scalingfactor}{sqrt(abs(\tmpscaleA*\tmpscaleD-\tmpscaleB*\tmpscaleC))*sqrt(abs((\pgf@xx/1cm)*(\pgf@yy/1cm)-(\pgf@xy/1cm)*(\pgf@yx/1cm)))}%
 }
 
 \newcommand{\cistercian}[2][]{%
@@ -84,7 +84,7 @@ A package for using cistercian numerals in latex
 }
 
 \newcommand{\cistercian@digit}[2][]{%
-  \draw[#1,line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)
+  \draw[#1,line width=\cistercian@scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)
   \ifnum1=#2%
     -- ++(0.5ex,0)
   \fi%
