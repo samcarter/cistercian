@@ -63,34 +63,48 @@ A package for using cistercian numerals in latex
 }
 
 \newcommand{\cistercian}[2][]{%
-  \begin{tikzpicture}[#1]
+  \ifnum1=#2%
+    \cistercian@one[#1]%
+  \fi%
+  \ifnum2=#2%
+    \cistercian@two[#1]%
+  \fi%
+  \ifnum3=#2%
+    \cistercian@three[#1]%
+  \fi%
+}
+
+\newcommand*{\cistercian@one}[1][]{%
+  \begin{tikzpicture}[#1]%
     %
     % store scaling factor
     \cistercian@scale
     %
     % drawing
-    \ifnum1=#2
-      \cistercian@one%
-    \fi%
-    \ifnum2=#2
-      \cistercian@two%
-    \fi%    
-    \ifnum3=#2
-      \cistercian@three%
-    \fi%        
-  \end{tikzpicture}%  
+    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,0);
+  \end{tikzpicture}%
 }
 
-\newcommand*{\cistercian@one}{%
-  \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,0);
+\newcommand*{\cistercian@two}[1][]{%
+  \begin{tikzpicture}[#1]%
+    %
+    % store scaling factor
+    \cistercian@scale
+    %
+    % drawing
+    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) ++(0,-0.5ex) -- ++(0.5ex,0);
+  \end{tikzpicture}%    
 }
 
-\newcommand*{\cistercian@two}{%
-  \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) ++(0,-0.5ex) -- ++(0.5ex,0);
-}
-
-\newcommand*{\cistercian@three}{%
-  \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,-0.5ex);
+\newcommand*{\cistercian@three}[1][]{%
+  \begin{tikzpicture}[#1]%
+    %
+    % store scaling factor
+    \cistercian@scale
+    %
+    % drawing
+    \draw[line width=\scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex) -- ++(0.5ex,-0.5ex);
+  \end{tikzpicture}%    
 }
 
 % \makeatother
@@ -102,6 +116,4 @@ A package for using cistercian numerals in latex
 %
 % tesT \cistercian[scale=2, draw=red]{1}
 %
-% \cistercian{2}
-%
-% \cistercian{3}
+% \fbox{\cistercian{2}}\fbox{\cistercian{3}}
