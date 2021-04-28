@@ -46,16 +46,15 @@ A package for using cistercian numerals in latex
 \RequirePackage{tikz}
 
 %<*driver>
-\documentclass{ltxdoc} 
-%\DisableImplementation
+\documentclass{ltxdoc}
+\usepackage{\jobname} 
 \begin{document}
   \DocInput{\jobname.dtx}
 \end{document}
 %</driver>
 % \fi
 % 
-% \makeatletter
-
+%    \begin{macrocode}
 \newcommand{\cistercian}[2][]{%
   \begin{tikzpicture}[#1]%
     %
@@ -117,7 +116,7 @@ A package for using cistercian numerals in latex
   ;
 }
 
-% \makeatother
+%    \end{macrocode}
 %
 % \cistercian{12}
 %
