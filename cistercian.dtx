@@ -63,18 +63,25 @@ A package for using cistercian numerals in latex
     \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%
     \pgfmathsetmacro{\cistercian@scalingfactor}{sqrt(abs(\tmpscaleA*\tmpscaleD-\tmpscaleB*\tmpscaleC))*sqrt(abs((\pgf@xx/1cm)*(\pgf@yy/1cm)-(\pgf@xy/1cm)*(\pgf@yx/1cm)))}%
     %
+    % ones
     \pgfmathparse{int(mod(#2,10)}
-    \let\cistercian@firstdigit\pgfmathresult
+    \let\cistercian@ones\pgfmathresult
+    \cistercian@digit{\cistercian@ones}
+    %
+    % tens
     \pgfmathparse{int((mod(#2,100)-mod(#2,10))/10)}
-    \let\cistercian@seconddigit\pgfmathresult
+    \let\cistercian@tens\pgfmathresult
+    \cistercian@digit[xscale=-1]{\cistercian@tens}
+    %
+    % hundrets        
     \pgfmathparse{int((mod(#2,1000)-mod(#2,100))/100)}
-    \let\cistercian@thirddigit\pgfmathresult
+    \let\cistercian@hundrets\pgfmathresult
+    \cistercian@digit[yscale=-1,yshift=-1.5ex]{\cistercian@hundrets}
+    %
+    % thousands    
     \pgfmathparse{int((mod(#2,10000)-mod(#2,1000))/1000)}
-    \let\cistercian@forthdigit\pgfmathresult
-    \cistercian@digit{\cistercian@firstdigit}
-    \cistercian@digit[xscale=-1]{\cistercian@seconddigit}
-    \cistercian@digit[yscale=-1,yshift=-1.5ex]{\cistercian@thirddigit}
-    \cistercian@digit[xscale=-1,yscale=-1,yshift=-1.5ex]{\cistercian@forthdigit}
+    \let\cistercian@thousands\pgfmathresult
+    \cistercian@digit[xscale=-1,yscale=-1,yshift=-1.5ex]{\cistercian@thousands}
   \end{tikzpicture}%    
 }
 
