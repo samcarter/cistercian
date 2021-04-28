@@ -57,35 +57,38 @@ A package for using cistercian numerals in latex
 % 
 %    \begin{macrocode}
 \newcommand{\cistercian}[2][]{%
-  \begin{tikzpicture}[#1]%
-    %
-    % store scaling factor
-    \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%
-    \pgfmathsetmacro{\cistercian@scalingfactor}{sqrt(abs(\tmpscaleA*\tmpscaleD-\tmpscaleB*\tmpscaleC))*sqrt(abs((\pgf@xx/1cm)*(\pgf@yy/1cm)-(\pgf@xy/1cm)*(\pgf@yx/1cm)))}%
-    %
-    % ones
-    \pgfmathparse{int(mod(#2,10)}
-    \let\cistercian@ones\pgfmathresult
-    \cistercian@digit{\cistercian@ones}
-    %
-    % tens
-    \pgfmathparse{int((mod(#2,100)-mod(#2,10))/10)}
-    \let\cistercian@tens\pgfmathresult
-    \cistercian@digit[xscale=-1]{\cistercian@tens}
-    %
-    % hundrets        
-    \pgfmathparse{int((mod(#2,1000)-mod(#2,100))/100)}
-    \let\cistercian@hundrets\pgfmathresult
-    \cistercian@digit[yscale=-1,yshift=-1.5ex]{\cistercian@hundrets}
-    %
-    % thousands    
-    \pgfmathparse{int((mod(#2,10000)-mod(#2,1000))/1000)}
-    \let\cistercian@thousands\pgfmathresult
-    \cistercian@digit[xscale=-1,yscale=-1,yshift=-1.5ex]{\cistercian@thousands}
-  \end{tikzpicture}%    
+  \ifnum#2<10000
+    \begin{tikzpicture}[#1]%
+      %
+      % store scaling factor
+      \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%
+      \pgfmathsetmacro{\cistercian@scalingfactor}{sqrt(abs(\tmpscaleA*\tmpscaleD-\tmpscaleB*\tmpscaleC))*sqrt(abs((\pgf@xx/1cm)*(\pgf@yy/1cm)-(\pgf@xy/1cm)*(\pgf@yx/1cm)))}%
+      %
+      % ones
+      \pgfmathparse{int(mod(#2,10)}
+      \let\cistercian@ones\pgfmathresult
+      %
+      % tens
+      \pgfmathparse{int((mod(#2,100)-mod(#2,10))/10)}
+      \let\cistercian@tens\pgfmathresult
+      %
+      % hundrets        
+      \pgfmathparse{int((mod(#2,1000)-mod(#2,100))/100)}
+      \let\cistercian@hundrets\pgfmathresult
+      %
+      % thousands    
+      \pgfmathparse{int((mod(#2,10000)-mod(#2,1000))/1000)}
+      \let\cistercian@thousands\pgfmathresult
+      %
+      \cistercian@digit{\cistercian@ones}{\cistercian@tens}
+      \cistercian@digit[xscale=-1]{\cistercian@tens}{\cistercian@ones}
+      \cistercian@digit[yscale=-1,yshift=-1.5ex]{\cistercian@hundrets}{\cistercian@thousands}
+      \cistercian@digit[xscale=-1,yscale=-1,yshift=-1.5ex]{\cistercian@thousands}{\cistercian@hundrets}
+    \end{tikzpicture}%   
+  \fi 
 }
 
-\newcommand{\cistercian@digit}[2][]{%
+\newcommand{\cistercian@digit}[3][]{%
   \draw[#1,line width=\cistercian@scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)
   \ifnum1=#2%
     -- ++(0.5ex,0)
@@ -94,6 +97,21 @@ A package for using cistercian numerals in latex
     ++(0,-0.5ex) -- ++(0.5ex,0)
   \fi%
   \ifnum3=#2%
+    \ifnum3=#3%
+      ++(-0.5ex,-0.5ex) -- ++(0.5ex,0.5ex)  
+    \fi
+    \ifnum1=#3%
+      ++(-0.5ex,0) -- ++(0.5ex,0)
+    \fi  
+    \ifnum5=#3%
+      ++(-0.5ex,0) -- ++(0.5ex,0)
+    \fi     
+    \ifnum7=#3%
+      ++(-0.5ex,0) -- ++(0.5ex,0)
+    \fi     
+    \ifnum9=#3%
+      ++(-0.5ex,0) -- ++(0.5ex,0)
+    \fi             
     -- ++(0.5ex,-0.5ex)
   \fi%
   \ifnum4=#2%
