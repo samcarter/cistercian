@@ -48,6 +48,7 @@ A package for using cistercian numerals in latex
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{\jobname} 
+\renewcommand{\thepage}{\cistercian[scale=2]{\value{page}}}
 \begin{document}
   \DocInput{\jobname.dtx}
 \end{document}
