@@ -48,14 +48,89 @@ A package for using cistercian numerals in latex
 %<*driver>
 \documentclass{ltxdoc}
 \usepackage{\jobname} 
+\usepackage{parskip}
+\usepackage{hyperref}
 \renewcommand{\thepage}{\cistercian[scale=2]{\value{page}}}
+\author{names}
+\title{The cistercian package}
 \begin{document}
-  \DocInput{\jobname.dtx}
+\maketitle
+
+The \verb|cistercian| package is meant for displaying Cistercian numerals in \LaTeX{}. It was inspired by the Numberphile video \href{https://www.youtube.com/watch?v=9p55Qgt7Ciw}{The Forgotten Number System}. 
+
+Cistercian numerals are a nearly forgotten number system which was invented in the late mediaevals by Cistercian monks, which at that time were one of the most influential congregations with monasteries spreading over most of Europe.
+
+Cistercian numerals are a base 10 system for natural numbers up to 9999. They are formed by a vertical stem for zero 
+\begin{tikzpicture}
+  \makeatletter
+    \path[line width=1*\cistercian@stroke] (0,0) -- (\cistercian@width,0);
+    \draw[line width=1*\cistercian@stroke] (0,0) -- ++(0,\cistercian@height);
+  \makeatother
+\end{tikzpicture}.
+Onto this stem, additional markings are added to denote individual digits, e.g. 1 is \cistercian{1}, 2 is \cistercian{2}, etc. The markings for ones are added at the top right, the ones for tens are mirrored to the top left (e.g. 10 is \cistercian{10}), hundreds at the bottom right (e.g. 100 is \cistercian{100}) and thousands at the bottom left (e.g. \cistercian{1000}). To form the complete number, the digits are superimposed on top of each other, e.g. 1111 \cistercian{1111}.
+
+Several variants were in use, in this package we are adopting the glyph shapes as as shown in \href{https://upload.wikimedia.org/wikipedia/commons/6/67/Cistercian_digits_%28vertical%29.svg}{this diagram}:
+
+\begin{center}
+\makeatletter
+\renewcommand{\cistercian@height}{4.5ex}%
+\renewcommand{\cistercian@width}{1.5ex}%
+\renewcommand{\cistercian@stroke}{0.3ex}%
+\makeatother
+\begin{tabular}{*{9}{c}}
+\cistercian{1} & \cistercian{2} & \cistercian{3} & \cistercian{4} & \cistercian{5} & \cistercian{6} & \cistercian{7} & \cistercian{8} & \cistercian{9} \\
+1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
+\cistercian{10} & \cistercian{20} & \cistercian{30} & \cistercian{40} & \cistercian{50} & \cistercian{60} & \cistercian{70} & \cistercian{80} & \cistercian{90} \\
+10 & 20 & 30 & 40 & 50 & 60 & 70 & 80 & 90\\
+\cistercian{100} & \cistercian{200} & \cistercian{300} & \cistercian{400} & \cistercian{500} & \cistercian{600} & \cistercian{700} & \cistercian{800} & \cistercian{900} \\
+100 & 200 & 300 & 400 & 500 & 600 & 700 & 800 & 900\\
+\cistercian{1000} & \cistercian{2000} & \cistercian{3000} & \cistercian{4000} & \cistercian{5000} & \cistercian{6000} & \cistercian{7000} & \cistercian{8000} & \cistercian{9000} \\
+1000 & 2000 & 3000 & 4000 & 5000 & 6000 & 7000 & 8000 & 9000\\
+\end{tabular}
+\end{center}
+
+
+
+ 
+ notation of cistercian order, they are one of the most influemcial order, offspring of benediktian, which where not estetic enough for the cistercians
+ 
+ more than 500 monastries all over europ
+ 
+ nobody knew about this, until about 20 years ago an historian david a king wrote a book
+ 
+ was also used by various groups after them
+ 
+ good to use for year numbers which typically have 4 digits
+ but also for pagenumbers
+
+ basically all cases where numbers are not used for math
+ 
+ only cover natural numbers up to 9999
+ 
+
+ \cistercian{12}
+
+ tesT\cistercian{1}
+
+{ \Huge tesT\cistercian{1} }
+
+ tesT \cistercian[scale=2, draw=red]{1}
+
+ \foreach \x in {1,...,99}{\cistercian[scale=6]{\x}}
+ \cistercian[scale=6]{33}
+
+ Todo:
+ - write documentation
+
 \end{document}
 %</driver>
 % \fi
 % 
-%    \begin{macrocode}
+%\begin{macrocode}
+\newcommand{\cistercian@height}{1.5ex}%
+\newcommand{\cistercian@width}{0.5ex}%
+\newcommand{\cistercian@stroke}{0.1ex}%
+
 \newcommand{\cistercian}[2][]{%
   \ifnum#2<10000
     \begin{tikzpicture}[#1]%
@@ -80,77 +155,64 @@ A package for using cistercian numerals in latex
       \pgfmathparse{int((mod(#2,10000)-mod(#2,1000))/1000)}
       \let\cistercian@thousands\pgfmathresult
       %
+      % superimposing the digts by mirroring
       \cistercian@digit{\cistercian@ones}{\cistercian@tens}
       \cistercian@digit[xscale=-1]{\cistercian@tens}{\cistercian@ones}
-      \cistercian@digit[yscale=-1,yshift=-1.5ex]{\cistercian@hundrets}{\cistercian@thousands}
-      \cistercian@digit[xscale=-1,yscale=-1,yshift=-1.5ex]{\cistercian@thousands}{\cistercian@hundrets}
+      \cistercian@digit[yscale=-1,yshift=-\cistercian@height]{\cistercian@hundrets}{\cistercian@thousands}
+      \cistercian@digit[xscale=-1,yscale=-1,yshift=-\cistercian@height]{\cistercian@thousands}{\cistercian@hundrets}
     \end{tikzpicture}%   
   \fi 
 }
 
 \newcommand{\cistercian@digit}[3][]{%
-  \draw[#1,line width=\cistercian@scalingfactor*0.1ex] (0,0) -- ++(0,1.5ex)
+  % making sure all numerals have the same width
+  \path[#1,line width=\cistercian@scalingfactor*\cistercian@stroke] (0,0) -- (\cistercian@width,0);
+  % drawing the stem for zero
+  \draw[#1,line width=\cistercian@scalingfactor*\cistercian@stroke] (0,0) -- ++(0,\cistercian@height)
+  % adding features depending in the digit
   \ifnum1=#2%
-    -- ++(0.5ex,0)
+    -- ++(\cistercian@width,0)
   \fi%
   \ifnum2=#2%
-    ++(0,-0.5ex) -- ++(0.5ex,0)
+    ++(0,-\cistercian@width) -- ++(\cistercian@width,0)
   \fi%
   \ifnum3=#2%
+    % several special case to make sure the line joints with the other site of the number look nice
     \ifnum3=#3%
-      ++(-0.5ex,-0.5ex) -- ++(0.5ex,0.5ex)  
+      ++(-\cistercian@width,-\cistercian@width) -- ++(\cistercian@width,\cistercian@width)  
     \fi
     \ifnum1=#3%
-      ++(-0.5ex,0) -- ++(0.5ex,0)
+      ++(-\cistercian@width,0) -- ++(\cistercian@width,0)
     \fi  
     \ifnum5=#3%
-      ++(-0.5ex,0) -- ++(0.5ex,0)
+      ++(-\cistercian@width,0) -- ++(\cistercian@width,0)
     \fi     
     \ifnum7=#3%
-      ++(-0.5ex,0) -- ++(0.5ex,0)
+      ++(-\cistercian@width,0) -- ++(\cistercian@width,0)
     \fi     
     \ifnum9=#3%
-      ++(-0.5ex,0) -- ++(0.5ex,0)
+      ++(-\cistercian@width,0) -- ++(\cistercian@width,0)
     \fi             
-    -- ++(0.5ex,-0.5ex)
+    -- ++(\cistercian@width,-\cistercian@width)
   \fi%
   \ifnum4=#2%
-    ++(0ex,-0.5ex) -- ++(0.5ex,0.5ex)
+    ++(0ex,-\cistercian@width) -- ++(\cistercian@width,\cistercian@width)
   \fi%  
   \ifnum5=#2%
-    -- ++(0.5ex,0ex) -- ++(-0.5ex,-0.5ex)
+    -- ++(\cistercian@width,0ex) -- ++(-\cistercian@width,-\cistercian@width)
   \fi%
   \ifnum6=#2%
-    ++(0.5ex,0ex) -- ++(0ex,-0.5ex)
+    ++(\cistercian@width,0ex) -- ++(0ex,-\cistercian@width)
   \fi%
   \ifnum7=#2%
-    --  ++(0.5ex,0ex) -- ++(0,-0.5ex)
+    --  ++(\cistercian@width,0ex) -- ++(0,-\cistercian@width)
   \fi%
   \ifnum8=#2%
-    ++(0,-0.5ex) -- ++(0.5ex,0) -- ++(0,0.5ex)
+    ++(0,-\cistercian@width) -- ++(\cistercian@width,0) -- ++(0,\cistercian@width)
   \fi%  
   \ifnum9=#2%
-    --  ++(0.5ex,0ex) -- ++(0,-0.5ex) -- ++(-0.5ex,0)
+    --  ++(\cistercian@width,0ex) -- ++(0,-\cistercian@width) -- ++(-\cistercian@width,0)
   \fi%  
   ;
 }
-
-%    \end{macrocode}
-%
-% inspired by The Forgotten Number System - Numberphile-9p55Qgt7Ciw
-
-
-% \cistercian{12}
-%
-% tesT\cistercian{1}
-%
-%{ \Huge tesT\cistercian{1} }
-%
-% tesT \cistercian[scale=2, draw=red]{1}
-%
-% \foreach \x in {1,...,99}{\cistercian[scale=6]{\x}}
-% \cistercian[scale=6]{33}
-%
-% Todo:
-% - write documentation
-% - what should the spacing around the number be?
+%\end{macrocode}
