@@ -41,9 +41,9 @@
       \pgfmathparse{int((mod(#2,100)-mod(#2,10))/10)}
       \let\cistercian@tens\pgfmathresult
       %
-      % hundrets
+      % hundreds
       \pgfmathparse{int((mod(#2,1000)-mod(#2,100))/100)}
-      \let\cistercian@hundrets\pgfmathresult
+      \let\cistercian@hundreds\pgfmathresult
       %
       % thousands
       \pgfmathparse{int((mod(#2,10000)-mod(#2,1000))/1000)}
@@ -52,8 +52,8 @@
       % superimposing the digts by mirroring
       \cistercian@digit{\cistercian@ones}{\cistercian@tens}
       \cistercian@digit[xscale=-1]{\cistercian@tens}{\cistercian@ones}
-      \cistercian@digit[yscale=-1,yshift=-\cistercian@height]{\cistercian@hundrets}{\cistercian@thousands}
-      \cistercian@digit[xscale=-1,yscale=-1,yshift=-\cistercian@height]{\cistercian@thousands}{\cistercian@hundrets}
+      \cistercian@digit[yscale=-1,yshift=-\cistercian@height]{\cistercian@hundreds}{\cistercian@thousands}
+      \cistercian@digit[xscale=-1,yscale=-1,yshift=-\cistercian@height]{\cistercian@thousands}{\cistercian@hundreds}
     \end{tikzpicture}%
   \fi\fi%
 }
