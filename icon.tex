@@ -1,0 +1,23 @@
+% !TeX program = txs:///arara | txs:///view-log | txs:///view-pdf "?am).pdf"
+% arara: latexmk: {
+% arara: --> engine: pdflatex,
+% arara: --> }
+% arara: pdftocairo: { 
+% arara: --> format: 'png',
+% arara: --> options: ['-r', '600', '-transp', '-singlefile'],
+% arara: --> output: 'ICON'
+% arara: --> }
+% arara: clean: { extensions: [ aux, fdb_latexmk, fls, log, synctex.gz ] }
+
+\documentclass[border=1mm]{standalone}
+
+\usepackage{cistercian}
+
+\begin{document}
+
+\begin{tikzpicture}
+  \shade[right color=lightgray,left color=gray,shading angle=135] (0,1.15) circle [radius=1.2cm];
+  \node at (0,1.1) {\color{blue!60!black}\scalebox{6.5}{\cistercian{9153}}};
+\end{tikzpicture}
+
+\end{document}

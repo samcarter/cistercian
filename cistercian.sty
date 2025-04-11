@@ -1,33 +1,40 @@
+% !TeX root = cistercian-doc.tex
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% This is file `cistercian.sty',
-% generated with the docstrip utility.
-%
-% The original source files were:
-%
-% cistercian.dtx  (with options: `package')
-% 
-% -------------------------------------------------------------------
-% 
-% The cistercian package
+% The cistercian package 
 % A package for using Cistercian numerals in latex
-% 
-% -------------------------------------------------------------------
-% 
-
-\ProvidesPackage{cistercian}[2021/04/28 v0.1 Cistercian numerals]
+% Maintained by samcarter
+%
+% Project repository and bug tracker:
+% https://github.com/samcarter/cistercian
+%
+% Released under the LaTeX Project Public License v1.3c or later
+% See https://www.latex-project.org/lppl.txt
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\ProvidesPackage{cistercian}[2025/04/12 version v0.1 Cistercian numerals]
 
 \RequirePackage{tikz}
+\newlength{\cistercian@I}
 
-\newcommand{\cistercian@height}{1.5ex}%
-\newcommand{\cistercian@width}{0.5ex}%
-\newcommand{\cistercian@stroke}{0.1ex}%
+\tikzset{
+  /cistercian/.search also={/tikz,/pgf},
+  /cistercian/.cd,
+  height/.store in   = \cistercian@height,
+  height             = \cistercian@I,
+  width/.store in    = \cistercian@width,
+  width              = \cistercian@height/3,
+  stroke/.store in   = \cistercian@stroke,
+  stroke             = \cistercian@height/10,
+}
 
-%% #1: optional arguments to be passed to the tikzpicture
-%% #2: number to be displayed
+% #1: optional arguments to be passed to the tikzpicture
+% #2: number to be displayed
 \newcommand{\cistercian}[2][]{%
   \ifnum#2<10000
   \unless\ifnum#2<0
-    \begin{tikzpicture}[#1]%
+    \setlength{\cistercian@I}{\fontcharht\font`I}%
+    \begin{tikzpicture}[baseline,/cistercian/.cd,#1]%
       %
       % store scaling factor
       \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%
@@ -50,31 +57,37 @@
       \let\cistercian@thousands\pgfmathresult
       %
       % superimposing the digts by mirroring
-      \cistercian@digit{\cistercian@ones}{\cistercian@tens}
-      \cistercian@digit[xscale=-1]{\cistercian@tens}{\cistercian@ones}
-      \cistercian@digit[yscale=-1,yshift=-\cistercian@height]{\cistercian@hundreds}{\cistercian@thousands}
-      \cistercian@digit[xscale=-1,yscale=-1,yshift=-\cistercian@height]{\cistercian@thousands}{\cistercian@hundreds}
+      \cistercian@digit{\cistercian@ones}{\cistercian@tens}{\cistercian@scalingfactor*\cistercian@stroke}
+      \cistercian@digit[xscale=-1]{\cistercian@tens}{\cistercian@ones}{\cistercian@scalingfactor*\cistercian@stroke}
+      \cistercian@digit[yscale=-1,yshift=-\cistercian@height]{\cistercian@hundreds}{\cistercian@thousands}{\cistercian@scalingfactor*\cistercian@stroke}
+      \cistercian@digit[xscale=-1,yscale=-1,yshift=-\cistercian@height]{\cistercian@thousands}{\cistercian@hundreds}{\cistercian@scalingfactor*\cistercian@stroke}
     \end{tikzpicture}%
   \fi\fi%
 }
 
-%% #1: optional arguments for mirroring the digit
-%% #2: the digit to be printed
-%% #3: digit on the other site of the stem (to handle edge cases of line joints)
-\newcommand{\cistercian@digit}[3][]{%
+% #1: optional arguments for mirroring the digit
+% #2: the digit to be printed
+% #3: digit on the other site of the stem (to handle edge cases of line joints)
+% #4: stroke width
+\newcommand{\cistercian@digit}[4][]{%
   % making sure all numerals have the same width
-  \path[#1,line width=\cistercian@scalingfactor*\cistercian@stroke] (0,0) -- (\cistercian@width,0);
+  \path[#1,line width=#4] (0,0) -- (\cistercian@width,0);
   % drawing the stem for zero
-  \draw[#1,line width=\cistercian@scalingfactor*\cistercian@stroke] (0,0) -- ++(0,\cistercian@height)
+  \draw[#1,line width=#4] (0,.5*\cistercian@stroke) -- ++(0,\cistercian@height-\cistercian@stroke)
   % adding features depending in the digit
-  \ifnum1=#2%
+  \ifcase #2 \or % 1
     -- ++(\cistercian@width,0)
-  \fi%
-  \ifnum2=#2%
+  \or % 2
     ++(0,-\cistercian@width) -- ++(\cistercian@width,0)
-  \fi%
-  \ifnum3=#2%
+    \ifnum3=#3%
+    \else
+      (0,.5*\cistercian@stroke) -- (0,\cistercian@height)
+    \fi
+  \or % 3
     % several special case to make sure the line joints with the other site of the number look nice
+    \ifnum1=#3%
+      ++(0,0) -- ++(.5*\cistercian@stroke,0)
+    \fi
     \ifnum3=#3%
       ++(-\cistercian@width,-\cistercian@width) -- ++(\cistercian@width,\cistercian@width)
     \fi
@@ -82,36 +95,54 @@
       ++(-\cistercian@width,0) -- ++(\cistercian@width,0)
     \fi
     \ifnum5=#3%
-      ++(-\cistercian@width,0) -- ++(\cistercian@width,0)
+      ++(0,0) -- ++(.5*\cistercian@stroke,0)
     \fi
     \ifnum7=#3%
-      ++(-\cistercian@width,0) -- ++(\cistercian@width,0)
+      ++(0,0) -- ++(.5*\cistercian@stroke,0)
     \fi
     \ifnum9=#3%
-      ++(-\cistercian@width,0) -- ++(\cistercian@width,0)
+      ++(0,0) -- ++(.5*\cistercian@stroke,0)
     \fi
-    -- ++(\cistercian@width,-\cistercian@width)
-  \fi%
-  \ifnum4=#2%
+    -- (\cistercian@width,\cistercian@height-\cistercian@width-.5*\cistercian@stroke)
+  \or % 4
     ++(0ex,-\cistercian@width) -- ++(\cistercian@width,\cistercian@width)
-  \fi%
-  \ifnum5=#2%
+    \ifnum3=#3%
+    \else
+      (0,.5*\cistercian@stroke) -- (0,\cistercian@height)
+    \fi
+  \or % 5
     -- ++(\cistercian@width,0ex) -- ++(-\cistercian@width,-\cistercian@width)
-  \fi%
-  \ifnum6=#2%
-    ++(\cistercian@width,0ex) -- ++(0ex,-\cistercian@width)
-  \fi%
-  \ifnum7=#2%
+  \or % 6
+    ++(\cistercian@width,.5*\cistercian@stroke) -- ++(0ex,-\cistercian@width-.5*\cistercian@stroke)
+    \ifnum3=#3%
+    \else
+      (0,.5*\cistercian@stroke) -- (0,\cistercian@height)
+    \fi
+  \or % 7
     --  ++(\cistercian@width,0ex) -- ++(0,-\cistercian@width)
-  \fi%
-  \ifnum8=#2%
-    ++(0,-\cistercian@width) -- ++(\cistercian@width,0) -- ++(0,\cistercian@width)
-  \fi%
-  \ifnum9=#2%
+  \or % 8
+    ++(0,-\cistercian@width) -- ++(\cistercian@width,0) -- ++(0,\cistercian@width+.5*\cistercian@stroke)
+    \ifnum3=#3%
+    \else
+      (0,.5*\cistercian@stroke) -- (0,\cistercian@height)
+    \fi
+  \or % 9
     --  ++(\cistercian@width,0ex) -- ++(0,-\cistercian@width) -- ++(-\cistercian@width,0)
-  \fi%
+  \fi  
   ;
+  \ifnum0=#2%
+  \ifnum0=#3%
+    \draw[#1,line width=#4] (0,.5*\cistercian@stroke) -- ++(0,\cistercian@height-.5*\cistercian@stroke);
+  \fi\fi
 }
+
+% for \pagenumbering{cistercian}
+\ExplSyntaxOn
+\newcommand*\@cistercian { \__cistercian:n }
+\cs_new:Npn \__cistercian:n #1
+  {
+    \cistercian{\the #1}
+  }
+\ExplSyntaxOff
+
 \endinput
-%%
-%% End of file `cistercian.sty'.

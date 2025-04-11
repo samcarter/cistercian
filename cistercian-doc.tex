@@ -1,7 +1,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % Documentation for the cistercian package
-% A package to display cistercian numerals 
+% A package to display cistercian numerals
 % Maintained by samcarter
 %
 % Project repository and bug tracker:
@@ -15,36 +15,28 @@
 \documentclass{scrartcl}
 
 \usepackage[
-  themecolor=samdgray,
+  themecolor=samlgray,
 ]{\jobname-settings}
+\colorlet{red}{samred}
 
 \usepackage{cistercian}
-\makeatletter
-\renewcommand{\cistercian@height}{1.25ex}
-\renewcommand{\cistercian@stroke}{0.15ex}
-\makeatother
 
-\makeatletter
 \setlength{\footheight}{21pt}
 \cfoot{%
-  \renewcommand{\cistercian@height}{1.25ex}%
-  \renewcommand{\cistercian@stroke}{0.15ex}%
-  \renewcommand{\cistercian@width}{0.5ex}%
-  \cistercian[scale=2]{\value{page}}
+  \cistercian[stroke=0.1ex,scale=2]{\value{page}}
 }
-\makeatother
 \pagestyle{scrheadings}
 
 % meta %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 \title{The cistercian package}
-\subtitle{Drawing cistercian pieces in \TikZ}
+\subtitle{A package to display Cistercian numerals}
 \author{%
   \texorpdfstring{
     \texttt{samcarter}\\
     \url{https://github.com/samcarter/cistercian}\\
 %    \url{https://ctan.org/pkg/cistercian}
   }{samcarter}}
-\date{Version v0.1 \textendash{} 2025/02/07}
+\date{Version v0.1 \textendash{} 2025/04/12}
 \packagename{cistercian}
 
 \begin{document}
@@ -54,31 +46,33 @@
 \section{Introduction}
 
 The \saminline|cistercian| package is meant for displaying Cistercian numerals in \LaTeX{}.
-It was inspired by the Numberphile video \href{https://www.youtube.com/watch?v=9p55Qgt7Ciw}{The Forgotten Number System}.
+It was inspired by the Numberphile video ``The Forgotten Number System''\footnote{\url{https://www.youtube.com/watch?v=9p55Qgt7Ciw}}. Many thanks to Paulo Cereda for bringing this video to my attention!
 
 \blurb*
 
 \section{Cistercian numerals}
 
-Cistercian numerals are a nearly forgotten number system which was invented in the late medieval by Cistercian monks, which at that time were one of the most influential congregations with monasteries spreading over most of Europe.
+Cistercian numerals are a nearly forgotten number system which was invented in the late Middle Ages by Cistercian monks who were, at that time, one of the most influential congregations with monasteries spreading over most of Europe.
 
-Cistercian numerals are a base 10 system for natural numbers up to 9999. 
+Cistercian numerals are a base-10 system for natural numbers up to 9999.
 They are formed by a vertical stem for zero \cistercian{0}.
-Onto this stem, additional markings are added to denote individual digits, e.g. 1 is \cistercian{1}, 2 is \cistercian{2}, etc. 
-The markings for ones are added at the top right, the ones for tens are mirrored to the top left (e.g. 10 is \cistercian{10}), hundreds at the bottom right (e.g. 100 is \cistercian{100}) and thousands at the bottom left (e.g. \cistercian{1000}). 
-To form the complete number, the digits are superimposed on top of each other, e.g. 1111 is \cistercian{1111}. 
+Onto this stem, additional markings are added to denote individual digits, e.g.\ 1 is \cistercian{1}, 2 is \cistercian{2}, etc.
+The markings for ones are added at the top right, the ones for tens are mirrored to the top left (e.g.\ 10 is \cistercian{10}), hundreds at the bottom right (e.g.\ 100 is \cistercian{100}) and thousands at the bottom left (e.g.\ \cistercian{1000}).
+To form the complete number, the digits are superimposed on top of each other, e.g.\ 1111 is \cistercian{1111}.
 
-While arithmetic calculations are hard with such a numeral system, it provides a compact and uniform way to denote natural numbers, making it well suited for year numbers or sequences like page numbers or footnotes. 
+While arithmetic calculations are hard with such a numeral system, it provides a compact and uniform way to denote natural numbers, making it well suited for year numbers or sequences like page numbers and footnotes. 
 
-Several variants were in use, in this package we are adopting the glyph shapes as shown in \href{https://upload.wikimedia.org/wikipedia/commons/6/67/Cistercian_digits_%28vertical%29.svg}{this diagram}:
+Several variants were in use, in this package we are adopting the glyph shapes as shown in \url{https://commons.wikimedia.org/wiki/File:Cistercian_digits_(vertical).svg}.
 
-\bigskip
+\clearpage
+\section{Overview numerals}
+
 \begin{center}
-\makeatletter
-\renewcommand{\cistercian@height}{4.5ex}%
-\renewcommand{\cistercian@width}{1.5ex}%
-\renewcommand{\cistercian@stroke}{0.3ex}%
-\makeatother
+\tikzset{
+  /cistercian/.cd,
+  height=4.5ex,
+  stroke=0.3ex
+}
 \begin{tabular}{*{9}{c}}
 \cistercian{1} & \cistercian{2} & \cistercian{3} & \cistercian{4} & \cistercian{5} & \cistercian{6} & \cistercian{7} & \cistercian{8} & \cistercian{9} \\
 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
@@ -91,32 +85,61 @@ Several variants were in use, in this package we are adopting the glyph shapes a
 \end{tabular}
 \end{center}
 
-\section{Package usage}
+\section{Basic usage}
 
-The \verb|cistercian| package provides the macro \verb|\cistercian{<number>}| to show a given number as Cistercian numeral. 
-
-Internally the package uses a \verb|tikzpicture| to draw the numeral accepts as optional argument all options which can normally be passed to the \verb|tikzpicture| environment (with one exception for the \verb|line width|, but this can be adjusted separately, see below). For example to get a coloured and scaled numeral
-
-\begin{tcblisting}{title={Jigsaw piece}}
-\cistercian[scale=5,draw=red]{3141}
+The \saminline|cistercian| package provides the macro \saminline|\cistercian{<number>}| to show a given number as Cistercian numeral.
+\begin{tcblisting}{title={Basic macro},environment lower args={scalebox}{5}}
+\cistercian{42}
 \end{tcblisting}
 
-\bigskip
-\begin{center}
-\cistercian[scale=5,draw=red]{3141}
-\end{center}
-\bigskip
+To change the page numbering of a document to Cistercian numerals, the following macro can be used:
+\begin{tcblisting}{title={Page numbering},listing only}
+\pagenumbering{cistercian}
+\end{tcblisting}
 
-By default the package scales the Cistercian numerals to be \verb|1.5ex| tall and \verb|0.5ex| wide, with a stroke width of \verb|0.1ex|. 
-With the default computer modern font that is approximately the size of a capital letter. 
-The user can change this by redefining the following macros after loading the package:
+\section{Options}
 
-\begin{verbatim}
-\renewcommand{\cistercian@height}{1.5ex}
-\renewcommand{\cistercian@width}{0.5ex}
-\renewcommand{\cistercian@stroke}{0.1ex}
-\end{verbatim}
+By default, the Cistercian numerals will scale with the surrounding font:
+\begin{tcblisting}{title={Font scaling}}
+\cistercian{2} Text
 
-User, for whom compilation speed is important and who do not need the possibility to modify the appearance of the numerals via Ti\emph{k}Z options, should have a look at the amazingly fast \href{https://ctan.org/pkg/xistercian}{xistercian} package, which also provides additional styles for the numerals. 
+\Huge \cistercian{5} Text
+\end{tcblisting}
+
+However the height, width and stroke can also be controlled individually (values in parenthesis denote the default value):
+\begin{tcblisting}{title={Height (height of ``I'')},environment lower args={scalebox}{5}}
+\cistercian{9}
+\cistercian[height=2ex]{9}
+\end{tcblisting}
+\begin{tcblisting}{title={Width (height/3)},environment lower args={scalebox}{5}}
+\cistercian{5}
+\cistercian[width=0.7ex]{5}
+\end{tcblisting}
+\begin{tcblisting}{title={Stroke (height/10)},environment lower args={scalebox}{5}}
+\cistercian{7}
+\cistercian[stroke=0.5mm]{7}
+\end{tcblisting}
+
+Internally the package uses a \saminline|tikzpicture| to draw the numeral and also accepts all options, which can normally be passed to the \saminline|tikzpicture| environment, in its optional argument. This can for example be used to change the colour or scale the numeral:
+\begin{tcblisting}{title={\TikZ\ options},environment lower args={scalebox}{5}}
+\cistercian[scale=2,draw=red]{3141}
+\end{tcblisting}
+
+Another option \TikZ\ option which might be useful for the Cistercian numerals is \saminline|line join|, which changes how the lines connect to each other. This alters the appearance of the numbers quite a bit and can help to blend them in with the surrounding font.
+\begin{tcblisting}{title={Line join (miter)},environment lower args={scalebox}{5}}
+\cistercian[line join=round]{53}
+\cistercian[line join=bevel]{53}
+\cistercian[line join=miter]{53}
+\end{tcblisting}
+
+\section{Alternatives}
+
+User, for whom compilation speed is important and who do not need the possibility to modify the appearance of the numerals via Ti\emph{k}Z options, should have a look at the amazingly fast and very versatile \href{https://ctan.org/pkg/xistercian}{xistercian} package.
+
+%\section{Testing}
+%
+%\foreach \macro in {1,...,999}{
+%  \macro:\cistercian[scale=10,line join=bevel]{\macro}
+%}
 
 \end{document}
