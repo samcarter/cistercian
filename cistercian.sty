@@ -61,6 +61,10 @@
       \cistercian@digit[xscale=-1]{\cistercian@tens}{\cistercian@ones}{\cistercian@scalingfactor*\cistercian@stroke}
       \cistercian@digit[yscale=-1,yshift=-\cistercian@height]{\cistercian@hundreds}{\cistercian@thousands}{\cistercian@scalingfactor*\cistercian@stroke}
       \cistercian@digit[xscale=-1,yscale=-1,yshift=-\cistercian@height]{\cistercian@thousands}{\cistercian@hundreds}{\cistercian@scalingfactor*\cistercian@stroke}
+      %
+      % debug
+      %\draw[red,line width=0.1pt] (0,0) rectangle (\cistercian@width,\cistercian@height);
+      %\draw[red,line width=0.1pt] (0,\cistercian@height) rectangle ++(\cistercian@width,-\cistercian@width-.5*\cistercian@stroke);
     \end{tikzpicture}%
   \fi\fi%
 }
@@ -71,69 +75,57 @@
 % #4: stroke width
 \newcommand{\cistercian@digit}[4][]{%
   % making sure all numerals have the same width
-  \path[#1,line width=#4] (0,0) -- (\cistercian@width,0);
+  \path[#1,line width=#4] (0,0) -- (\cistercian@width+.5*\cistercian@stroke,\cistercian@height);
+  %
   % drawing the stem for zero
-  \draw[#1,line width=#4] (0,.5*\cistercian@stroke) -- ++(0,\cistercian@height-\cistercian@stroke)
-  % adding features depending in the digit
-  \ifcase #2 \or % 1
-    -- ++(\cistercian@width,0)
+  \draw[#1,line width=#4,overlay] (0,.5*\cistercian@stroke) -- ++(0,\cistercian@height-\cistercian@stroke)
+  %  
+  \ifcase #2 
+  \or % 1
+    -- ++(\cistercian@width+.5*\cistercian@stroke,0)
   \or % 2
-    ++(0,-\cistercian@width) -- ++(\cistercian@width,0)
-    \ifnum3=#3%
-    \else
-      (0,.5*\cistercian@stroke) -- (0,\cistercian@height)
-    \fi
+       ++(0,-\cistercian@width) 
+    -- ++(\cistercian@width+.5*\cistercian@stroke,0)
   \or % 3
-    % several special case to make sure the line joints with the other site of the number look nice
-    \ifnum1=#3%
-      ++(0,0) -- ++(.5*\cistercian@stroke,0)
-    \fi
-    \ifnum3=#3%
-      ++(-\cistercian@width,-\cistercian@width) -- ++(\cistercian@width,\cistercian@width)
-    \fi
-    \ifnum1=#3%
-      ++(-\cistercian@width,0) -- ++(\cistercian@width,0)
-    \fi
-    \ifnum5=#3%
-      ++(0,0) -- ++(.5*\cistercian@stroke,0)
-    \fi
-    \ifnum7=#3%
-      ++(0,0) -- ++(.5*\cistercian@stroke,0)
-    \fi
-    \ifnum9=#3%
-      ++(0,0) -- ++(.5*\cistercian@stroke,0)
-    \fi
-    -- (\cistercian@width,\cistercian@height-\cistercian@width-.5*\cistercian@stroke)
+    \ifnum3=#3
+      (-\cistercian@width,\cistercian@height-\cistercian@width-.5*\cistercian@stroke) -- (0,\cistercian@height) -- (\cistercian@width,\cistercian@height-\cistercian@width-.5*\cistercian@stroke)
+    \else
+      \ifodd#3
+        -- ++(.5*\cistercian@stroke,0) 
+      \fi
+      -- ++(\cistercian@width,-\cistercian@width)
+    \fi 
   \or % 4
-    ++(0ex,-\cistercian@width) -- ++(\cistercian@width,\cistercian@width)
-    \ifnum3=#3%
-    \else
-      (0,.5*\cistercian@stroke) -- (0,\cistercian@height)
-    \fi
+       ++(0,-\cistercian@width) 
+    -- ++(\cistercian@width,\cistercian@width)
   \or % 5
-    -- ++(\cistercian@width,0ex) -- ++(-\cistercian@width,-\cistercian@width)
+    -- ++(\cistercian@width,0) 
+    -- ++(-\cistercian@width,-\cistercian@width)
   \or % 6
-    ++(\cistercian@width,.5*\cistercian@stroke) -- ++(0ex,-\cistercian@width-.5*\cistercian@stroke)
-    \ifnum3=#3%
-    \else
-      (0,.5*\cistercian@stroke) -- (0,\cistercian@height)
-    \fi
+       ++(\cistercian@width,.5*\cistercian@stroke) 
+    -- ++(0,-\cistercian@width-.5*\cistercian@stroke)
   \or % 7
-    --  ++(\cistercian@width,0ex) -- ++(0,-\cistercian@width)
+    -- ++(\cistercian@width,0) -- ++(0,-\cistercian@width)
   \or % 8
     ++(0,-\cistercian@width) -- ++(\cistercian@width,0) -- ++(0,\cistercian@width+.5*\cistercian@stroke)
-    \ifnum3=#3%
-    \else
+  \or % 
+    -- ++(\cistercian@width,0) -- ++(0,-\cistercian@width) -- ++(-\cistercian@width,0) 
+  \fi
+  %
+  \ifnum#2>0
+    \unless\ifodd#2
+      \unless\ifodd#3
+        (0,.5*\cistercian@stroke) -- (0,\cistercian@height)
+      \fi
+    \fi
+  \else
+    \ifnum0=#3
       (0,.5*\cistercian@stroke) -- (0,\cistercian@height)
     \fi
-  \or % 9
-    --  ++(\cistercian@width,0ex) -- ++(0,-\cistercian@width) -- ++(-\cistercian@width,0)
-  \fi  
+  \fi
+  %
+  % close path
   ;
-  \ifnum0=#2%
-  \ifnum0=#3%
-    \draw[#1,line width=#4] (0,.5*\cistercian@stroke) -- ++(0,\cistercian@height-.5*\cistercian@stroke);
-  \fi\fi
 }
 
 % for \pagenumbering{cistercian}
