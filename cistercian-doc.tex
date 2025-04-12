@@ -43,6 +43,12 @@
 \maketitle
 \thispagestyle{scrheadings}
 
+\begin{tcolorbox}[width=.8\textwidth,center,sidebyside=false,title={Note}]
+User, for whom compilation speed is important and who do not need the possibility to modify the appearance of the numerals via Ti\emph{k}Z options, should have a look at the amazingly fast and very versatile \href{https://ctan.org/pkg/xistercian}{xistercian} package instead.
+
+The two packages are not meant to be combined.
+\end{tcolorbox}
+
 \section{Introduction}
 
 The \saminline|cistercian| package is meant for displaying Cistercian numerals in \LaTeX{}.
@@ -64,7 +70,6 @@ While arithmetic calculations are hard with such a numeral system, it provides a
 
 Several variants were in use, in this package we are adopting the glyph shapes as shown in \url{https://commons.wikimedia.org/wiki/File:Cistercian_digits_(vertical).svg}.
 
-\clearpage
 \section{Overview numerals}
 
 \begin{center}
@@ -131,10 +136,6 @@ Another option \TikZ\ option which might be useful for the Cistercian numerals i
 \cistercian[line join=bevel]{53}
 \cistercian[line join=miter]{53}
 \end{tcblisting}
-
-\section{Alternatives}
-
-User, for whom compilation speed is important and who do not need the possibility to modify the appearance of the numerals via Ti\emph{k}Z options, should have a look at the amazingly fast and very versatile \href{https://ctan.org/pkg/xistercian}{xistercian} package.
 
 %\section{Testing}
 %
