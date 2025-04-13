@@ -18,14 +18,20 @@
 \newlength{\cistercian@I}
 
 \tikzset{
+  code/.code={#1},
   /cistercian/.search also={/tikz,/pgf},
   /cistercian/.cd,
-  height/.store in   = \cistercian@height,
-  height             = \cistercian@I,
-  width/.store in    = \cistercian@width,
-  width              = \cistercian@height/3,
-  stroke/.store in   = \cistercian@stroke,
-  stroke             = \cistercian@height/10,
+  height/.store in      = \cistercian@height,
+  height                = \cistercian@I,
+  width/.store in       = \cistercian@width,
+  width                 = \cistercian@height/3,
+  stroke/.store in      = \cistercian@stroke,
+  stroke                = \cistercian@height/10,
+}
+
+\newcommand*{\cistercian@set}{}
+\newcommand{\cistercianset}[1]{%
+  \renewcommand*{\cistercian@set}{/cistercian/.cd,#1}
 }
 
 % #1: optional arguments to be passed to the tikzpicture
@@ -34,7 +40,7 @@
   \ifnum#2<10000
   \unless\ifnum#2<0
     \setlength{\cistercian@I}{\fontcharht\font`I}%
-    \begin{tikzpicture}[baseline,/cistercian/.cd,#1]%
+    \begin{tikzpicture}[baseline,/cistercian/.cd,code={\pgfkeysalsofrom\cistercian@set},#1]%
       %
       % store scaling factor
       \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%

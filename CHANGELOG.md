@@ -4,6 +4,8 @@
 
 ### New
 
+- added `\cistercianset` macro to change options globally
+
 ### Changed
 
 ### Fixed

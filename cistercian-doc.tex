@@ -54,7 +54,7 @@ The two packages are not meant to be combined.
 The \saminline|cistercian| package is meant for displaying Cistercian numerals in \LaTeX{}.
 It was inspired by the Numberphile video ``The Forgotten Number System''\footnote{\url{https://www.youtube.com/watch?v=9p55Qgt7Ciw}}. Many thanks to Paulo Cereda for bringing this video to my attention!
 
-\blurb
+\blurb*
 
 \section{Cistercian numerals}
 
@@ -73,8 +73,7 @@ Several variants were in use, in this package we are adopting the glyph shapes a
 \section{Overview numerals}
 
 \begin{center}
-\tikzset{
-  /cistercian/.cd,
+\cistercianset{
   height=4.5ex,
   stroke=0.3ex
 }
@@ -137,10 +136,28 @@ Another \TikZ\ option which might be useful for the Cistercian numerals is \sami
 \cistercian[line join=miter]{53}
 \end{tcblisting}
 
+Besides using these option as optional argument, they can also be set globally using the macro \saminline|\cistercianset|:
+\begin{tcblisting}{title={Global options},listing only}
+\cistercianset{%
+  height=1cm,
+  width=0.2cm,
+  stroke=0.1cm,
+  draw=red,
+}
+\end{tcblisting}
+
 %\section{Testing}
 %
-%\foreach \macro in {1,...,100}{
-%  \macro:\cistercian[scale=10]{\macro}
+%\cistercianset{%
+%  height=1cm,
+%%  width=0.2cm,
+%%  stroke=0.1cm,
+%  draw=red,
+%%line join=bevel
+%}
+%
+%\foreach \macro in {1,...,10}{
+%  \macro:\cistercian{\macro}
 %}
 
 \end{document}
