@@ -40,7 +40,7 @@
   \ifnum#2<10000
   \unless\ifnum#2<0
     \setlength{\cistercian@I}{\fontcharht\font`I}%
-    \begin{tikzpicture}[baseline,/cistercian/.cd,code={\pgfkeysalsofrom\cistercian@set},#1]%
+    \begin{tikzpicture}[baseline,/cistercian/.cd,code={\pgfkeysalsofrom\cistercian@set},#1,actualtext={#2}]%
       %
       % store scaling factor
       \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%

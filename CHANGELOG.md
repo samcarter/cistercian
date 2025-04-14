@@ -4,6 +4,8 @@
 
 ### New
 
+- added `actualtext=...` option for tagging
+
 ### Changed
 
 - append options from `\cistercianset` rather than overwriting previous options
