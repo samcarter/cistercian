@@ -29,9 +29,9 @@
   stroke                = \cistercian@height/10,
 }
 
-\newcommand*{\cistercian@set}{}
+\newcommand*{\cistercian@set}{/cistercian/.cd}
 \newcommand{\cistercianset}[1]{%
-  \renewcommand*{\cistercian@set}{/cistercian/.cd,#1}
+  \apptocmd{\cistercian@set}{,#1}{}{}%
 }
 
 % #1: optional arguments to be passed to the tikzpicture

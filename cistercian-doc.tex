@@ -146,18 +146,22 @@ Besides using these option as optional argument, they can also be set globally u
 }
 \end{tcblisting}
 
-%\section{Testing}
-%
-%\cistercianset{%
-%  height=1cm,
-%%  width=0.2cm,
-%%  stroke=0.1cm,
-%  draw=red,
-%%line join=bevel
-%}
-%
-%\foreach \macro in {1,...,10}{
-%  \macro:\cistercian{\macro}
-%}
+\section{Testing}
+
+\cistercianset{%
+  height=1cm,
+%  width=0.2cm,
+%  stroke=0.1cm,
+  draw=red,
+%line join=bevel
+}
+
+\cistercianset{%
+  draw=green,
+}
+
+\foreach \macro in {1,...,10}{
+  \macro:\cistercian{\macro}
+}
 
 \end{document}

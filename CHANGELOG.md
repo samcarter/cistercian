@@ -6,6 +6,8 @@
 
 ### Changed
 
+- append options from `\cistercianset` rather than overwriting previous options
+
 ### Fixed
 
 
