@@ -4,6 +4,8 @@
 
 ### New
 
+- added `\cistercianreset` macro to reset options
+
 ### Changed
 
 - append options from `\cistercianset` rather than overwriting previous options
