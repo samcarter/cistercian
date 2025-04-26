@@ -1,4 +1,4 @@
-% !TeX root = cistercian-doc.tex
+% !TeX root = test.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
 % The cistercian package 
@@ -12,9 +12,10 @@
 % See https://www.latex-project.org/lppl.txt
 %
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-\ProvidesPackage{cistercian}[2025/04/14 version v0.2 Cistercian numerals]
+\ProvidesPackage{cistercian}[2025/04/24 version v0.4 Cistercian numerals]
 
 \RequirePackage{tikz}
+\RequirePackage{etoolbox}
 \newlength{\cistercian@I}
 
 \tikzset{
@@ -33,6 +34,9 @@
 \newcommand{\cistercianset}[1]{%
   \apptocmd{\cistercian@set}{,#1}{}{}%
 }
+\newcommand{\cistercianreset}{%
+  \renewcommand{\cistercian@set}{}%
+}
 
 % #1: optional arguments to be passed to the tikzpicture
 % #2: number to be displayed
@@ -45,6 +49,9 @@
       % store scaling factor
       \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%
       \pgfmathsetmacro{\cistercian@scalingfactor}{sqrt(abs(\tmpscaleA*\tmpscaleD-\tmpscaleB*\tmpscaleC))*sqrt(abs((\pgf@xx/1cm)*(\pgf@yy/1cm)-(\pgf@xy/1cm)*(\pgf@yx/1cm)))}%
+      %
+      % making sure all numbers have the same width
+      \path [line width=\cistercian@scalingfactor*\cistercian@stroke] (-\cistercian@width-.5*\cistercian@stroke,0) -- (\cistercian@width+.5*\cistercian@stroke,\cistercian@height);
       %
       % ones
       \pgfmathparse{int(mod(#2,10)}
@@ -63,10 +70,14 @@
       \let\cistercian@thousands\pgfmathresult
       %
       % superimposing the digts by mirroring
-      \cistercian@digit{\cistercian@ones}{\cistercian@tens}{\cistercian@scalingfactor*\cistercian@stroke}
-      \cistercian@digit[xscale=-1]{\cistercian@tens}{\cistercian@ones}{\cistercian@scalingfactor*\cistercian@stroke}
-      \cistercian@digit[yscale=-1,yshift=-\cistercian@height]{\cistercian@hundreds}{\cistercian@thousands}{\cistercian@scalingfactor*\cistercian@stroke}
-      \cistercian@digit[xscale=-1,yscale=-1,yshift=-\cistercian@height]{\cistercian@thousands}{\cistercian@hundreds}{\cistercian@scalingfactor*\cistercian@stroke}
+      \ifnum#2=1881
+        \cistercian@peace{\cistercian@scalingfactor*\cistercian@stroke}{.5\cistercian@height-0.5*\cistercian@scalingfactor*\cistercian@stroke}
+      \else
+        \cistercian@digit{\cistercian@ones}{\cistercian@tens}{\cistercian@scalingfactor*\cistercian@stroke}
+        \cistercian@digit[xscale=-1]{\cistercian@tens}{\cistercian@ones}{\cistercian@scalingfactor*\cistercian@stroke}
+        \cistercian@digit[yscale=-1,yshift=-\cistercian@height]{\cistercian@hundreds}{\cistercian@thousands}{\cistercian@scalingfactor*\cistercian@stroke}
+        \cistercian@digit[xscale=-1,yscale=-1,yshift=-\cistercian@height]{\cistercian@thousands}{\cistercian@hundreds}{\cistercian@scalingfactor*\cistercian@stroke}
+      \fi
       %
       % debug
       %\draw[red,line width=0.1pt] (0,0) rectangle (\cistercian@width,\cistercian@height);
@@ -75,14 +86,21 @@
   \fi\fi%
 }
 
+% #1: stroke width
+% #2: radius
+\newcommand{\cistercian@peace}[2]{
+  \draw[line width=#1,overlay] 
+    (0,#2+0.5*#1) circle [radius=#2] 
+    (0,0+0.5*#1) -- (0,2*#2+0.5*#1)
+    (0,#2+0.5*#1) -- ++ (-30:#2)
+    (0,#2+0.5*#1) -- ++ (-150:#2);
+}
+
 % #1: optional arguments for mirroring the digit
 % #2: the digit to be printed
 % #3: digit on the other site of the stem (to handle edge cases of line joints)
 % #4: stroke width
 \newcommand{\cistercian@digit}[4][]{%
-  % making sure all numerals have the same width
-  \path[#1,line width=#4] (0,0) -- (\cistercian@width+.5*\cistercian@stroke,\cistercian@height);
-  %
   % drawing the stem for zero
   \draw[#1,line width=#4,overlay] (0,.5*\cistercian@stroke) -- ++(0,\cistercian@height-\cistercian@stroke)
   %  

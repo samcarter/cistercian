@@ -36,7 +36,7 @@
     \url{https://github.com/samcarter/cistercian}\\
     \url{https://ctan.org/pkg/cistercian}
   }{samcarter}}
-\date{Version v0.2 \textendash{} 2025/04/14}
+\date{Version v0.4 \textendash{} 2025/04/24}
 \packagename{cistercian}
 
 \begin{document}
@@ -54,7 +54,7 @@ The two packages are not meant to be combined.
 The \saminline|cistercian| package is meant for displaying Cistercian numerals in \LaTeX{}.
 It was inspired by the Numberphile video ``The Forgotten Number System''\footnote{\url{https://www.youtube.com/watch?v=9p55Qgt7Ciw}}. Many thanks to Paulo Cereda for bringing this video to my attention!
 
-\blurb*
+\blurb
 
 \section{Cistercian numerals}
 
@@ -146,22 +146,9 @@ Besides using these option as optional argument, they can also be set globally u
 }
 \end{tcblisting}
 
-\section{Testing}
-
-\cistercianset{%
-  height=1cm,
-%  width=0.2cm,
-%  stroke=0.1cm,
-  draw=red,
-%line join=bevel
-}
-
-\cistercianset{%
-  draw=green,
-}
-
-\foreach \macro in {1,...,10}{
-  \macro:\cistercian{\macro}
-}
+These global options can be reset:
+\begin{tcblisting}{title={Reset global options},listing only}
+\cistercianreset
+\end{tcblisting}
 
 \end{document}
