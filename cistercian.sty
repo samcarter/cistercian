@@ -15,12 +15,6 @@
 \ProvidesPackage{cistercian}[2025/04/24 version v0.4 Cistercian numerals]
 
 \RequirePackage{tikz}
-\ifnum\patch@level<0
-  \usepackage{latex-lab-testphase-tikz}
-\else
-  \pgfkeys{/pgf/actualtext/.code={}}
-\fi
-
 \RequirePackage{etoolbox}
 \newlength{\cistercian@I}
 
@@ -50,7 +44,7 @@
   \ifnum#2<10000
   \unless\ifnum#2<0
     \setlength{\cistercian@I}{\fontcharht\font`I}%
-    \begin{tikzpicture}[baseline,/cistercian/.cd,code={\pgfkeysalsofrom\cistercian@set},#1,actualtext={#2}]%
+    \begin{tikzpicture}[baseline,/cistercian/.cd,code={\pgfkeysalsofrom\cistercian@set},#1,actualtext/.try={#2}]%
       %
       % store scaling factor
       \pgfgettransformentries{\tmpscaleA}{\tmpscaleB}{\tmpscaleC}{\tmpscaleD}{\tmp}{\tmp}%
