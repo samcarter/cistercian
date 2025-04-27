@@ -15,6 +15,12 @@
 \ProvidesPackage{cistercian}[2025/04/24 version v0.4 Cistercian numerals]
 
 \RequirePackage{tikz}
+\ifnum\patch@level<0
+  \usepackage{latex-lab-testphase-tikz}
+\else
+  \pgfkeys{/pgf/actualtext/.code={}}
+\fi
+
 \RequirePackage{etoolbox}
 \newlength{\cistercian@I}
 
