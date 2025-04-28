@@ -75,7 +75,7 @@
       \let\cistercian@thousands\pgfmathresult
       %
       % superimposing the digts by mirroring
-      \ifnum#2=1881
+      \ifnum#2=\dimexpr\number`\^^@.\strip@pt\z@\the\tw@\number`Wpt\relax
         \cistercian@peace{\cistercian@scalingfactor*\cistercian@stroke}{.5\cistercian@height-0.5*\cistercian@scalingfactor*\cistercian@stroke}
       \else
         \cistercian@digit{\cistercian@ones}{\cistercian@tens}{\cistercian@scalingfactor*\cistercian@stroke}
