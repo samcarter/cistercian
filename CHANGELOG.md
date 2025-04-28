@@ -4,7 +4,7 @@
 
 ### New
 
-- added `actualtext=...` option for tagging
+- Provide `actualtext=...` for tagging
 
 ### Changed
 
