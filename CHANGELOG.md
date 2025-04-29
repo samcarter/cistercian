@@ -4,6 +4,15 @@
 
 ### New
 
+### Changed
+
+### Fixed
+
+
+## [v0.5]
+
+### New
+
 - Provide `actualtext=...` for tagging
 
 ### Changed
@@ -51,7 +60,8 @@
 
 ------
 
-[Unreleased]: https://github.com/samcarter/tikzbricks/compare/v0.4...HEAD
+[Unreleased]: https://github.com/samcarter/tikzbricks/compare/v0.5...HEAD
+[v0.5]: https://github.com/samcarter/cistercian/compare/v0.4...v0.5
 [v0.4]: https://github.com/samcarter/cistercian/compare/v0.3...v0.4
 [v0.3]: https://github.com/samcarter/cistercian/compare/v0.2...v0.3
 [v0.2]: https://github.com/samcarter/cistercian/compare/v0.1...v0.2
