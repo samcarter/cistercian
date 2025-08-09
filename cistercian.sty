@@ -158,12 +158,7 @@
 }
 
 % for \pagenumbering{cistercian}
-\ExplSyntaxOn
-\newcommand*\@cistercian { \__cistercian:n }
-\cs_new:Npn \__cistercian:n #1
-  {
-    \cistercian{\the #1}
-  }
-\ExplSyntaxOff
+\newcommand*\@cistercian{\@@cistercian}
+\newcommand{\@@cistercian}[1]{\cistercian{\the #1}}
 
 \endinput
