@@ -6,6 +6,8 @@
 
 ### Changed
 
+- Using the BusyPanda package to automatically adjust stroke width to blend in with the surrounding font family
+
 ### Fixed
 
 

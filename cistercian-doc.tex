@@ -23,7 +23,7 @@
 
 \setlength{\footheight}{21pt}
 \cfoot{%
-  \cistercian[stroke=0.1ex,scale=2]{\value{page}}
+  \cistercian[height=0.5cm]{\value{page}}
 }
 \pagestyle{scrheadings}
 
@@ -66,17 +66,14 @@ Onto this stem, additional markings are added to denote individual digits, e.g.\
 The markings for ones are added at the top right, the ones for tens are mirrored to the top left (e.g.\ 10 is \cistercian{10}), hundreds at the bottom right (e.g.\ 100 is \cistercian{100}) and thousands at the bottom left (e.g.\ \cistercian{1000}).
 To form the complete number, the digits are superimposed on top of each other, e.g.\ 1111 is \cistercian{1111}.
 
-While arithmetic calculations are hard with such a numeral system, it provides a compact and uniform way to denote natural numbers, making it well suited for year numbers or sequences like page numbers and footnotes. 
+While arithmetic calculations are hard with such a numeral system, it provides a compact and uniform way to denote natural numbers, making it well suited for year numbers or sequences like page numbers and footnotes.
 
 Several variants were in use, in this package we are adopting the glyph shapes as shown in \url{https://commons.wikimedia.org/wiki/File:Cistercian_digits_(vertical).svg}.
 
 \section{Overview numerals}
 
 \begin{center}
-\cistercianset{
-  height=4.5ex,
-  stroke=0.3ex
-}
+\cistercianset{height=0.7cm}
 \begin{tabular}{*{9}{c}}
 \cistercian{1} & \cistercian{2} & \cistercian{3} & \cistercian{4} & \cistercian{5} & \cistercian{6} & \cistercian{7} & \cistercian{8} & \cistercian{9} \\
 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9\\
@@ -105,7 +102,7 @@ To change the page numbering of a document to Cistercian numerals, the following
 
 By default, the Cistercian numerals will scale with the surrounding font:
 \begin{tcblisting}{title={Font scaling}}
-\cistercian{2} Text
+\cistercian{5} Text
 
 \Huge \cistercian{5} Text
 \end{tcblisting}
@@ -119,8 +116,10 @@ However the height, width and stroke can also be controlled individually (values
 \cistercian{5}
 \cistercian[width=0.7ex]{5}
 \end{tcblisting}
-\begin{tcblisting}{title={Stroke (height/10)},environment lower args={scalebox}{5}}
+Thanks to using the \saminline|BusyPanda| package, the stroke width will automatically adapt to blend in with the surrounding font:
+\begin{tcblisting}{title={Stroke (\textbackslash BusyPanda\{0.125\}*height)},environment lower args={scalebox}{5}}
 \cistercian{7}
+\fontfamily{ugq}\cistercian{7}
 \cistercian[stroke=0.5mm]{7}
 \end{tcblisting}
 
@@ -136,7 +135,7 @@ Another \TikZ\ option which might be useful for the Cistercian numerals is \sami
 \cistercian[line join=miter]{53}
 \end{tcblisting}
 
-Besides using these option as optional argument, they can also be set via the macro \saminline|\cistercianset|:
+Besides using these options as optional arguments, they can also be set globally via the macro \saminline|\cistercianset|:
 \begin{tcblisting}{title={Options},listing only}
 \cistercianset{%
   height=1cm,

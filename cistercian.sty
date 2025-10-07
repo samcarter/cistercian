@@ -1,7 +1,7 @@
 % !TeX root = test.tex
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %
-% The cistercian package 
+% The cistercian package
 % A package for using Cistercian numerals in latex
 % Maintained by samcarter
 %
@@ -21,6 +21,7 @@
 }
 
 \RequirePackage{etoolbox}
+\RequirePackage{BusyPanda}
 \newlength{\cistercian@I}
 
 \tikzset{
@@ -32,7 +33,7 @@
   width/.store in       = \cistercian@width,
   width                 = \cistercian@height/3,
   stroke/.store in      = \cistercian@stroke,
-  stroke                = \cistercian@height/10,
+  stroke                = \BusyPanda{0.125}*\cistercian@height,
 }
 
 \newcommand*{\cistercian@set}{/cistercian/.cd}
@@ -94,8 +95,8 @@
 % #1: stroke width
 % #2: radius
 \newcommand{\cistercian@peace}[2]{
-  \draw[line width=#1,overlay] 
-    (0,#2+0.5*#1) circle [radius=#2] 
+  \draw[line width=#1,overlay]
+    (0,#2+0.5*#1) circle [radius=#2]
     (0,0+0.5*#1) -- (0,2*#2+0.5*#1)
     (0,#2+0.5*#1) -- ++ (-30:#2)
     (0,#2+0.5*#1) -- ++ (-150:#2);
@@ -108,37 +109,37 @@
 \newcommand{\cistercian@digit}[4][]{%
   % drawing the stem for zero
   \draw[#1,line width=#4,overlay] (0,.5*\cistercian@stroke) -- ++(0,\cistercian@height-\cistercian@stroke)
-  %  
-  \ifcase #2 
+  %
+  \ifcase #2
   \or % 1
     -- ++(\cistercian@width+.5*\cistercian@stroke,0)
   \or % 2
-       ++(0,-\cistercian@width) 
+       ++(0,-\cistercian@width)
     -- ++(\cistercian@width+.5*\cistercian@stroke,0)
   \or % 3
     \ifnum3=#3
       (-\cistercian@width,\cistercian@height-\cistercian@width-.5*\cistercian@stroke) -- (0,\cistercian@height) -- (\cistercian@width,\cistercian@height-\cistercian@width-.5*\cistercian@stroke)
     \else
       \ifodd#3
-        -- ++(.5*\cistercian@stroke,0) 
+        -- ++(.5*\cistercian@stroke,0)
       \fi
       -- ++(\cistercian@width,-\cistercian@width)
-    \fi 
+    \fi
   \or % 4
-       ++(0,-\cistercian@width) 
+       ++(0,-\cistercian@width)
     -- ++(\cistercian@width,\cistercian@width)
   \or % 5
-    -- ++(\cistercian@width,0) 
+    -- ++(\cistercian@width,0)
     -- ++(-\cistercian@width,-\cistercian@width)
   \or % 6
-       ++(\cistercian@width,.5*\cistercian@stroke) 
+       ++(\cistercian@width,.5*\cistercian@stroke)
     -- ++(0,-\cistercian@width-.5*\cistercian@stroke)
   \or % 7
     -- ++(\cistercian@width,0) -- ++(0,-\cistercian@width)
   \or % 8
     ++(0,-\cistercian@width) -- ++(\cistercian@width,0) -- ++(0,\cistercian@width+.5*\cistercian@stroke)
-  \or % 
-    -- ++(\cistercian@width,0) -- ++(0,-\cistercian@width) -- ++(-\cistercian@width,0) 
+  \or %
+    -- ++(\cistercian@width,0) -- ++(0,-\cistercian@width) -- ++(-\cistercian@width,0)
   \fi
   %
   \ifnum#2>0
