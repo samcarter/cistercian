@@ -6,6 +6,15 @@
 
 ### Changed
 
+### Fixed
+
+
+## [v0.6]
+
+### New
+
+### Changed
+
 - Using the BusyPanda package to automatically adjust stroke width to blend in with the surrounding font family
 
 ### Fixed
@@ -62,7 +71,8 @@
 
 ------
 
-[Unreleased]: https://github.com/samcarter/tikzbricks/compare/v0.5...HEAD
+[Unreleased]: https://github.com/samcarter/tikzbricks/compare/v0.6...HEAD
+[v0.6]: https://github.com/samcarter/cistercian/compare/v0.5...v0.6
 [v0.5]: https://github.com/samcarter/cistercian/compare/v0.4...v0.5
 [v0.4]: https://github.com/samcarter/cistercian/compare/v0.3...v0.4
 [v0.3]: https://github.com/samcarter/cistercian/compare/v0.2...v0.3
