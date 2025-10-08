@@ -2,4 +2,4 @@ hard pgf
 hard iftex
 hard epstopdf-pkg
 hard etoolbox
-hard BusyPanda
+hard panda
