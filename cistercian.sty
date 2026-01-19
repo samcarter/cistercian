@@ -75,7 +75,7 @@
       \pgfmathparse{int((mod(#2,10000)-mod(#2,1000))/1000)}
       \let\cistercian@thousands\pgfmathresult
       %
-      % superimposing the digts by mirroring
+      % superimposing the digits by mirroring
       \ifnum#2=\dimexpr\number`\^^@.\strip@pt\z@\the\tw@\number`Wpt\relax
         \cistercian@peace{\cistercian@scalingfactor*\cistercian@stroke}{.5\cistercian@height-0.5*\cistercian@scalingfactor*\cistercian@stroke}
       \else
