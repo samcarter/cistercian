@@ -6,6 +6,15 @@
 
 ### Changed
 
+### Fixed
+
+
+## [v0.7]
+
+### New
+
+### Changed
+
 - simplified syntax for `actualtext` (with pgf v3.1.12, it is now a native pgf key and supports `.try` )
 
 ### Fixed
@@ -73,7 +82,8 @@
 
 ------
 
-[Unreleased]: https://github.com/samcarter/tikzbricks/compare/v0.6...HEAD
+[Unreleased]: https://github.com/samcarter/tikzbricks/compare/v0.7...HEAD
+[v0.7]: https://github.com/samcarter/cistercian/compare/v0.6...v0.7
 [v0.6]: https://github.com/samcarter/cistercian/compare/v0.5...v0.6
 [v0.5]: https://github.com/samcarter/cistercian/compare/v0.4...v0.5
 [v0.4]: https://github.com/samcarter/cistercian/compare/v0.3...v0.4
