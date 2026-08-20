@@ -6,6 +6,8 @@
 
 ### Changed
 
+- simplified syntax for `actualtext` (with pgf v3.1.12, it is now a native pgf key and supports `.try` )
+
 ### Fixed
 
 
